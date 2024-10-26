@@ -26,8 +26,9 @@ const options = document.getElementById('options');
 const quizMcq = document.getElementById('quiz-mcq');
 const question = quizMcq.querySelector('.question');
 const choices = quizMcq.querySelector('.choices');
-const choiceBtns = choices.children;
 const next = document.getElementById('next');
+
+let choiceBtns;
 
 // Quiz Result Elements
 const quizResult = document.getElementById('quiz-result');
@@ -130,9 +131,20 @@ async function resetQuiz() {
 function displayMcq(mcq) {
     const counter = mcqCounter + 1;
     question.textContent = `${counter}. ${mcq.title}`;
-    mcq.choices.forEach((choice, index) => {
-        choiceBtns[index].textContent = choice;
+
+    choiceBtns = [];
+    choices.innerHTML = '';
+    mcq.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.textContent = choice;
+        btn.classList.add('choice');
+        choiceBtns.push(btn);
+        choices.appendChild(btn);
+        btn.textContent = choice;
     });
+
+    addChoicesEventListeners(choiceBtns);
+    next.classList.remove('hidden');
 }
 
 // Display Result
@@ -163,15 +175,18 @@ function getCorrectAnswer(qindex) {
 }
 
 // Event listeners
-for (let i = 0; i < choiceBtns.length; i++) {
-    choiceBtns[i].addEventListener('click', () => {
-        if (isConfirmed) {
-            return;
-        }
-        choices.querySelector('.selected')?.classList.remove('selected');
-        choiceBtns[i].classList.add('selected');
-    });
+function addChoicesEventListeners(btns) {
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', () => {
+            if (isConfirmed) {
+                return;
+            }
+            choices.querySelector('.selected')?.classList.remove('selected');
+            btns[i].classList.add('selected');
+        });
+    }
 }
+
 
 next.addEventListener('click', async () => {
     const selection = choices.querySelector('.selected');
@@ -208,8 +223,6 @@ next.addEventListener('click', async () => {
         correctCount++;
     } else {
         selection.classList.add('incorrect');
-
-        const correctAnswer = getCorrectAnswer(mcqCounter);
         choiceBtns[correctIndices[mcqCounter]].classList.add('correct');
     }
 
