@@ -1,0 +1,80 @@
+#quiz-mcq {
+  padding: 1rem 1rem 0.5rem;
+  margin: 2rem clamp(0.25rem, 2.66vw, 5rem);
+}
+
+#quiz-mcq .question {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+}
+
+#quiz-mcq .choices {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+}
+
+#quiz-mcq .choices * {
+  padding: 0.375rem 1.5rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  color: var(--clr-primary);
+  border: 2px solid var(--clr-primary);
+  border-radius: 0.5rem;
+}
+
+#quiz-mcq .selected {
+  color: var(--clr-light);
+  background-color: var(--clr-primary);
+}
+
+#quiz-mcq .correct {
+  color: var(--clr-light);
+  background-color: var(--clr-success);
+  border-color: var(--clr-success);
+}
+
+#quiz-mcq .incorrect {
+    color: var(--clr-light);
+    background-color: var(--clr-danger);
+    border-color: var(--clr-danger);
+}
+
+#quiz-result {
+  margin-top: 4rem;
+}
+
+#quiz-result button, #next {
+  font-size: 1.3rem;
+}
+
+#to-main {
+  background: var(--clr-primary);
+}
+
+@media (min-width: 576px) {
+  #quiz-mcq .question {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  #quiz-mcq .question {
+    font-size: 1.75rem;
+  }
+
+  button {
+    font-size: 1.5rem;
+  }
+}
+
+main button[id] {
+  align-self: center;
+  padding: 0.5em 1.25em;
+  background-color: var(--clr-dark);
+  color: var(--clr-light);
+  border-radius: 2em;
+}

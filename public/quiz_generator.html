@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Prep</title>
+</head>
+
+<body>
+    <header class="pg-header">
+		<div class="container flex content-between">
+			<a href="../" id="back">
+				<svg width="25" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+					<path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
+					<path d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
+				</svg>
+			</a>
+			<div class="wrapper">
+				<h2 class="text-center">Generate A Quiz</h2>
+				<h4 class="text-center no-wrap-ellipsis subtitle limit-1">Submit the following to start quiz.</h4>
+			</div>
+			<div class="dropdown" style="width: 29px;"></div>
+		</div>
+    </header>
+    <main id="main" class="container">
+        <form action="practice_quiz.html">
+            <!-- Questions Number -->
+            <p>How many questions would you like to practice?</p>
+            <div class="wrapper flex-col gap-1">
+                <label class="num">
+                    <span id="qnum-range">5-MAX:</span>
+                    <input id="qnum" type="number" name="qnum" min="1" required>
+                </label>
+                <label class="flex center-y">
+                    <input type="checkbox" id="all">
+                    All Questions
+                </label>
+
+                <!-- Shuffle Questions -->
+                <label class="flex center-y">
+                    <input type="checkbox" id="shuffle-questions" name="shuffle-questions">
+                    Shuffle Questions
+                </label>
+
+                <!-- Shuffle Choices -->
+                <label class="flex center-y">
+                    <input type="checkbox" id="shuffle-choices" name="shuffle-choices">
+                    Shuffle Choices
+                </label>
+            </div>
+            <input type="submit" value="Start Quiz">
+        </form>
+    </main>
+
+    <script type="module" src="src/quiz_generator.js"></script>
+</body>
+
+</html>

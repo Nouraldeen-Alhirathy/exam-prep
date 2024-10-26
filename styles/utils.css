@@ -1,0 +1,233 @@
+/* Container Utility */
+.container {
+  width: 100%;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* btn Class Start */
+.btn {
+  display: inline-block;
+  padding: 1em 2em;
+  color: var(--white-color);
+  border-radius: 1rem 0.3rem 1rem 0.3rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 500ms;
+}
+
+.btn.primary {
+  background-color: var(--primary-color);
+}
+.btn.primary:is(:hover, :focus-visible) {
+  background-color: var(--primary-color-dark);
+  box-shadow: none;
+}
+
+.btn.secondary {
+  background-color: var(--secondary-color);
+}
+.btn.secondary:is(:hover, :focus-visible) {
+  background-color: var(--secondary-color-dark);
+  box-shadow: none;
+}
+/* btn Class End */
+
+/* Card Button Class Start */
+.card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--clr-primary);
+  color: var(--clr-light);
+  padding: 5rem 1px;
+  margin: 2.5rem clamp(0.5rem, 2.66vw, 5rem);
+  border-radius: 1rem;
+  box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.35);
+  transition: box-shadow 500ms, background-color 500ms;
+  overflow: hidden;
+}
+.card-btn:is(:hover, :focus-visible) {
+  background-color: var(--clr-primary-dark);
+  box-shadow: none;
+}
+
+/* Card Button Class End*/
+
+/* dialog class start */
+/* Overlay style */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Dialog container */
+.dialog-container {
+  background-color: var(--clr-light);
+  border-radius: 14px;
+  padding: 20px;
+  width: clamp(300px, 90%, 400px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Dialog title */
+.dialog-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* Option button */
+.dialog-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--clr-primary);
+  color: var(--clr-light);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.dialog-button:hover {
+  background-color: var(--clr-primary-dark);
+}
+/* dialog class end */
+
+
+/* section padding utility */
+.section {
+  --padding: clamp(2rem, 6vw, 5rem);
+  padding-top: var(--padding);
+  padding-bottom: var(--padding);
+}
+
+.section-sm {
+  --padding: clamp(1.25rem, 2.66vw, 2rem);
+  padding-top: var(--padding);
+  padding-bottom: var(--padding);
+}
+
+
+
+/* Flexbox Utilities */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.center-x {
+  justify-content: center;
+}
+
+.center-y {
+  align-items: center;
+}
+
+.start-x {
+  justify-content: flex-start;
+}
+
+.start-y {
+  align-items: flex-start;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.no-shrink > * {
+  flex-shrink: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.content-between {
+  justify-content: space-between;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.gap-3 {
+  gap: 3rem;
+}
+
+.no-wrap-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.limit-width {
+  width: clamp(10rem, calc(100% - 1.4rem), 35rem);
+}
+
+.subtitle {
+  color: var(--clr-gray);
+}
+
+.hidden {
+  display: none;
+}
+
+

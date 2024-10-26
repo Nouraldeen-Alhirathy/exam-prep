@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Global Styles */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Colors */
+  --clr-primary: #006E85;
+  --clr-primary-dark: #004D61;
+  --clr-dark: #1a1a1a;
+  --clr-light: #ffffff;
+  --clr-gray: #505050;
+  --clr-border: #777;
+  --clr-success: #008000;
+  --clr-danger: #DD0000;
+
+  /* Typography */
+  --ff-primary: 'DM Sans', sans-serif;
+  --fs-100: 0.75rem;
+  --fs-200: 0.875rem;
+  --fs-300: 1rem;
+  --fs-400: 1.5rem;
+  --fs-500: 2rem;
+  --fs-600: 3rem;
+  --fs-700: 4rem;
+  --fs-800: 5rem;
+  --fs-900: 6rem;
+}
+
+body {
+  font-family: var(--ff-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 450;
+}
