@@ -1,6 +1,10 @@
 import './common/imports.js';
 import '../styles/components/generator_form.css';
 import { qbConfig } from './qb_config.js';
+import storageService from './services/storage_service.js';
+
+const storage = storageService.getService();
+await checkStoredQuizConfig();
 
 // Get query params
 const urlParams = new URLSearchParams(window.location.search);
@@ -13,14 +17,31 @@ const isAllChb = document.getElementById('all');
 // Get QBank Questions Number from config
 handleInvalidQuantity(qbConfig);
 qNumInput.setAttribute('max', qbConfig["count"]);
-qNumInput.value = parseInt(qNumInput.value) > qbConfig["count"] ? qbConfig["count"] : qNumInput.value;
+qNumInput.value = !qNumInput.value || qNumInput.value > qbConfig["count"] ? qbConfig["count"] : qNumInput.value;
 qNumRange.textContent = `1-${qbConfig["count"]}:`;
+if (isAllChb.checked) {
+    qNumInput.setAttribute("disabled", "disabled");
+} else {
+    qNumInput.focus();
+}
 
 // Query params error handling
 function handleInvalidQuantity(config) {
     const error = urlParams.get('error');
     if (error && error === 'invlid_quantity') {
         alert(`Error: Quantity must be between 1 and ${config["count"]}`);
+    }
+}
+
+async function checkStoredQuizConfig() {
+    const quizConfig = await storage.get('quizConfig');
+    if (quizConfig) {
+        if (confirm("You have an unfinished quiz. Do you want to continue?\nCancel to start a new quiz.")) {
+            // navigate to quiz
+            window.location.href = './practice_quiz.html';
+        } else {
+            await storage.save('quizConfig', null);
+        }
     }
 }
 
@@ -40,9 +61,10 @@ qNumInput.addEventListener('input', (e) => {
 isAllChb.addEventListener('change', event => {
     if (event.target.checked) {
         qNumInput.value = qbConfig["count"];
+        qNumInput.setAttribute("disabled", "disabled");
     } else {
+        qNumInput.removeAttribute("disabled");
         qNumInput.focus();
     }
-    qNumInput.toggleAttribute('disabled');
 });
 

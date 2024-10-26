@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exam Prep</title>
 </head>
@@ -31,7 +30,7 @@
             <div class="wrapper flex-col gap-1">
                 <label class="num">
                     <span id="qnum-range">5-MAX:</span>
-                    <input id="qnum" type="number" name="qnum" min="1" required>
+                    <input id="qnum" type="number" name="qnum" min="1">
                 </label>
                 <label class="flex center-y">
                     <input type="checkbox" id="all">
@@ -54,7 +53,7 @@
         </form>
     </main>
 
-    <script type="module" src="src/quiz_generator.js"></script>
+    <script type="module" src="./src/quiz_generator.js"></script>
 </body>
 
 </html>

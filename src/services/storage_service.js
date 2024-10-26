@@ -4,8 +4,7 @@ import IndexedDBService from './indexed_db_service.js';
 class StorageService {
     constructor() {
         if (!StorageService.instance) {
-            const useLocalStorage = false;
-            this.storageService = useLocalStorage ? new LocalStorageService() : new IndexedDBService();
+            this.storageService = window.indexedDB ? new IndexedDBService() : new LocalStorageService();
             StorageService.instance = this; // Store instance
         }
         return StorageService.instance;

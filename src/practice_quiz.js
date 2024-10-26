@@ -2,10 +2,14 @@ import './common/imports.js';
 import '../styles/components/quiz_mcq.css'
 import { loadQBankData } from './controllers/qb_controller.js';
 import { qbConfig, qbId } from './qb_config.js';
+import storageService from './services/storage_service.js';
+
+const storage = storageService.getService();
+const quizConfig = await storage.get('quizConfig');
 
 // Parse query params
 const urlParams = new URLSearchParams(window.location.search);
-const quantity = urlParams.get('qnum') || 1;
+const quantity = parseInt(urlParams.get('qnum')) || qbConfig["count"];
 const shuffleQuestions = urlParams.get('shuffle-questions');
 const shuffleChoices = urlParams.get('shuffle-choices');
 
@@ -34,16 +38,27 @@ const newQuiz = document.getElementById('new-quiz');
 const mainMenu = document.getElementById('to-main');
 
 // Load and display qb data
-await loadQBankData(qbId, qbConfig)
-    .then(qb => {
-        validateQuantity(qb.questions.length);
-        mcqs = getMcqs(qb.questions);
-        correctIndices = mcqs.map(question => question.answer);
-        displayMcq(mcqs[mcqCounter]);
-    })
-    .catch(error => {
-        console.error('Error loading qb data:', error);
-    });
+if (quizConfig) {
+    validateQuantity(quizConfig["count"]);
+    mcqs = getMcqs(quizConfig["mcqs"]);
+    correctIndices = mcqs.map(question => question.answer);
+    mcqCounter = quizConfig["mcqCounter"];
+    correctCount = quizConfig["correctCount"];
+    displayMcq(mcqs[mcqCounter]);
+} else {
+    await loadQBankData(qbId, qbConfig)
+        .then(qb => {
+            validateQuantity(qb.questions.length);
+            mcqs = getMcqs(qb.questions);
+            
+            correctIndices = mcqs.map(question => question.answer);
+            displayMcq(mcqs[mcqCounter]);
+        })
+        .catch(error => {
+            console.error('Error loading qb data:', error);
+        });
+
+}
 
 // Functions
 
@@ -71,25 +86,29 @@ function getMcqs(questions) {
 
 function randomizeChoices(mcq) {
     const arr = mcq.choices;
+    const correctAnswer = arr[mcq.answer]; // Store initial index of the correct answer
 
+    // Shuffle choices
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
-        if (i === mcq.answer) {
-            mcq.answer = j;
-        }
     }
+
+    // Update mcq.answer to new index of the correct answer
+    mcq.answer = arr.indexOf(correctAnswer);
     return arr;
 }
 
 
 function randomSelectMcqs(arr, max) {
+    const copyArr = [...arr];
     const result = [];
 
-    for (let i = 0; i < Math.min(max, arr.length); i++) {
-        const randomIndex = Math.floor(Math.random() * arr.length);
-        result.push(arr[randomIndex]);
-        arr.splice(randomIndex, 1); // Remove the chosen element
+    for (let i = 0; i < max; i++) {
+        const randomIndex = Math.floor(Math.random() * copyArr.length);
+        result.push(copyArr[randomIndex]);
+
+        copyArr.splice(randomIndex, 1); // Remove the chosen element
     }
 
     return result;
@@ -97,10 +116,14 @@ function randomSelectMcqs(arr, max) {
 
 
 // Initialize Quiz
-function initQuiz() {
+async function resetQuiz() {
     mcqCounter = 0;
     correctCount = 0;
     isConfirmed = false;
+
+    const quizConfig = null;
+
+    await storage.save('quizConfig', quizConfig);
 }
 
 // Display Question
@@ -150,7 +173,7 @@ for (let i = 0; i < choiceBtns.length; i++) {
     });
 }
 
-next.addEventListener('click', () => {
+next.addEventListener('click', async () => {
     const selection = choices.querySelector('.selected');
 
     // Check if counter is at the end
@@ -158,6 +181,7 @@ next.addEventListener('click', () => {
         quizMcq.classList.add('hidden');
         quizResult.classList.remove('hidden');
         displayResult();
+        await resetQuiz();
         return;
     }
 
@@ -202,4 +226,14 @@ newQuiz.addEventListener('click', () => {
 
 mainMenu.addEventListener('click', () => {
     window.location.href = '/';
+});
+
+window.addEventListener('beforeunload', async () => {
+    const quizConfig = {
+        mcqs: mcqs,
+        mcqCounter: mcqCounter,
+        correctCount: correctCount
+    };
+
+    await storage.save('quizConfig', quizConfig);
 });
