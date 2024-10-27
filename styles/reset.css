@@ -47,9 +47,11 @@ meter {
   accent-color: var(--clr-primary); /* Use your primary color here */
 }
 
-input[type="checkbox"] {
-  transform: scale(1.5); /* Scale the size of the checkbox and icon */
-  margin: 5px; /* Optional: Adjust margin for better alignment */
+@media (min-width: 768px) {
+  input[type="checkbox"] {
+    transform: scale(1.4);
+    margin: 5px;
+  }
 }
 
 ul {

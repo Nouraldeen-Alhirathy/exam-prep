@@ -40,6 +40,17 @@ class IndexedDBService extends IStorage {
             request.onerror = (event) => reject(event.target.errorCode);
         });
     }
+
+    async remove(key) {
+        const db = await this.openDB();
+        const transaction = db.transaction([this.qbStore], "readwrite");
+        const store = transaction.objectStore(this.qbStore);
+        return new Promise((resolve, reject) => {
+            const request = store.delete(key);
+            request.onsuccess = () => resolve();
+            request.onerror = (event) => reject(event.target.errorCode);
+        });
+    }
 }
 
 export default IndexedDBService;

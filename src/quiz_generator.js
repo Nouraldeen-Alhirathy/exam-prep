@@ -10,11 +10,15 @@ await checkStoredQuizConfig();
 const urlParams = new URLSearchParams(window.location.search);
 
 // DOM Elements
+const form = document.querySelector('form');
 const qNumInput = document.getElementById('qnum');
 const qNumRange = document.getElementById('qnum-range');
 const isAllChb = document.getElementById('all');
+const shQuesChb = document.getElementById('shuffle-questions');
+const shChoicesChb = document.getElementById('shuffle-choices');
 
-// Get QBank Questions Number from config
+// Set UI
+await restoreFormData();
 handleInvalidQuantity(qbConfig);
 qNumInput.setAttribute('max', qbConfig["count"]);
 qNumInput.value = !qNumInput.value || qNumInput.value > qbConfig["count"] ? qbConfig["count"] : qNumInput.value;
@@ -33,6 +37,17 @@ function handleInvalidQuantity(config) {
     }
 }
 
+async function restoreFormData() {
+    const formData = await storage.get('quizForm');
+    
+    if (formData) {
+        qNumInput.value = formData[0];
+        isAllChb.checked = formData[1];
+        shQuesChb.checked = formData[2];
+        shChoicesChb.checked = formData[3];
+    }
+}
+
 async function checkStoredQuizConfig() {
     const quizConfig = await storage.get('quizConfig');
     if (quizConfig) {
@@ -40,7 +55,7 @@ async function checkStoredQuizConfig() {
             // navigate to quiz
             window.location.href = './practice_quiz.html';
         } else {
-            await storage.save('quizConfig', null);
+            await storage.remove('quizConfig');
         }
     }
 }
@@ -58,7 +73,7 @@ qNumInput.addEventListener('input', (e) => {
 });
 
 // Event Listeners
-isAllChb.addEventListener('change', event => {
+isAllChb.addEventListener('change', async event => {
     if (event.target.checked) {
         qNumInput.value = qbConfig["count"];
         qNumInput.setAttribute("disabled", "disabled");
@@ -68,3 +83,13 @@ isAllChb.addEventListener('change', event => {
     }
 });
 
+
+form.addEventListener('submit', async (e) => {
+    let quizForm = [];
+    quizForm.push(qNumInput.value);
+    quizForm.push(isAllChb.checked);
+    quizForm.push(shQuesChb.checked);
+    quizForm.push(shChoicesChb.checked);
+    
+    await storage.save('quizForm', quizForm);
+});

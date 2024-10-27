@@ -73,8 +73,4 @@
 
 main button[id] {
   align-self: center;
-  padding: 0.5em 1.25em;
-  background-color: var(--clr-dark);
-  color: var(--clr-light);
-  border-radius: 2em;
 }

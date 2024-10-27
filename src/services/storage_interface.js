@@ -6,4 +6,8 @@ export default class IStorage {
     async get(key) {
         throw new Error("Method 'get()' must be implemented.");
     }
+
+    async remove(key) {
+        throw new Error("Method 'remove()' must be implemented.");
+    }
 }

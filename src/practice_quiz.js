@@ -19,6 +19,7 @@ let correctIndices = [];
 let mcqCounter = 0;
 let isConfirmed = false;
 let correctCount = 0;
+let isFinished = false;
 
 // MCQ Elements
 const moreButton = document.getElementById('more');
@@ -121,10 +122,9 @@ async function resetQuiz() {
     mcqCounter = 0;
     correctCount = 0;
     isConfirmed = false;
+    isFinished = true;
 
-    const quizConfig = null;
-
-    await storage.save('quizConfig', quizConfig);
+    await storage.remove('quizConfig');
 }
 
 // Display Question
@@ -248,5 +248,7 @@ window.addEventListener('beforeunload', async () => {
         correctCount: correctCount
     };
 
-    await storage.save('quizConfig', quizConfig);
+    if (!isFinished) {
+        await storage.save('quizConfig', quizConfig);
+    }
 });

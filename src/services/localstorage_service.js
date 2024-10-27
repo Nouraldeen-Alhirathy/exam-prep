@@ -10,6 +10,10 @@ class LocalStorageService extends IStorage {
         
         return storedValue ? JSON.parse(storedValue) : null;
     }
+
+    async remove(key) {
+        localStorage.removeItem(key);
+    }
 }
 
 export default LocalStorageService;
