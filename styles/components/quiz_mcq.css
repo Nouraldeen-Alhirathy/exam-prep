@@ -76,7 +76,7 @@ main button[id] {
 }
 
 @media (prefers-color-scheme: dark) {
-  .mcq .choices :not(.selected) {
+  #quiz-mcq .choices :not(.selected) {
     --clr-primary: #00bbdd;
   }
 }
