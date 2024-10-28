@@ -74,3 +74,9 @@
 main button[id] {
   align-self: center;
 }
+
+@media (prefers-color-scheme: dark) {
+  .mcq .choices :not(.selected) {
+    --clr-primary: #00bbdd;
+  }
+}

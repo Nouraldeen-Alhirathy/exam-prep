@@ -13,8 +13,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  /* color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
+  background: var(--clr-light);
+  color: var(--clr-dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -42,6 +42,26 @@
   --fs-700: 4rem;
   --fs-800: 5rem;
   --fs-900: 6rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--clr-light);
+    background: var(--clr-dark);
+    --clr-gray: #bbb;
+  }
+
+  svg {
+    fill: var(--clr-light);
+  }
+
+  svg[fill="none"] {
+    fill: none;
+  }
+
+  svg[fill="none"] path {
+    fill: var(--clr-light);
+  }
 }
 
 body {

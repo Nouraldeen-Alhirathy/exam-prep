@@ -1,4 +1,9 @@
 .pg-header {
+  position: sticky;
+  top: 0;
+  background: var(--clr-light);
+  color: var(--clr-dark);
+  z-index: 10;
   border-bottom: 1px solid var(--clr-border);
   box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.15);
 }
@@ -6,6 +11,7 @@
 .pg-header .container {
   padding: 1rem 0.5rem 0.5rem;
   align-items: flex-end;
+  position: relative;
 }
 
 .pg-header .wrapper {
@@ -26,8 +32,8 @@
 
 .tooltip-options {
   position: absolute;
-  right: 1rem;
-  top: 5.35rem;
+  right: clamp(1rem, 6vw, 2rem);;
+  top: clamp(5.4rem, 17vw, 6.3rem);
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
@@ -43,4 +49,15 @@
 .tooltip-options label {
   cursor: pointer;
   display: flex;
+}
+
+@media (prefers-color-scheme: dark) {
+  .pg-header {
+    color: var(--clr-light);
+    background: var(--clr-dark);
+  }
+
+  .tooltip-options {
+    background-color: var(--clr-dark);
+  }
 }

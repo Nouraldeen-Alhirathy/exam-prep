@@ -61,6 +61,12 @@
 .btn-dark:is(:hover, :focus-visible) {
   background-color: #000;
 }
+@media (prefers-color-scheme: dark) {
+  .btn-dark {
+    background-color: #000;
+    transition: none;
+  }
+}
 /* btn Class End */
 
 /* Card Button Class Start */
