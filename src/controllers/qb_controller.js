@@ -45,18 +45,21 @@ async function fetchQBankData(url, qbId) {
 }
 
 async function loadQBankData(qbId, config) {
-    const qbConfig = config;
-    const url = qbConfig["url"];
-
-    const storedQBank = await storage.get(qbId);
-    if (storedQBank) {
-        console.log('QBank loaded from storage.');
-        return storedQBank;
-    } else {
-        console.log('No qb found in storage, fetching from API...');
-        
+    const url = config["url"];
+    const needsUpdate = await storage.get('needsUpdate');
+    if (needsUpdate) {
+        console.log(`New version of ${qbId} QB found, fetching from API...`);
         return await fetchQBankData(url, qbId);
     }
+
+    const storedQBank = await storage.get(qbId);
+    if (!storedQBank) {
+        console.log(`No ${qbId} QB found in storage, fetching from API...`);
+        return await fetchQBankData(url, qbId);
+    }
+
+    console.log(`${qbId} QB loaded from storage.`);
+    return storedQBank;
 }
 
 export { fetchAllQBankConfigs, loadQBankData };

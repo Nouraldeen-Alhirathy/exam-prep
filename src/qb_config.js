@@ -11,16 +11,21 @@ let qbConfig;
 
 // load qb config
 async function loadQbConfig() {
+    qbConfigs = await fetchAllQBankConfigs();
     const storedId = await storage.get('qbId');
     const config = await storage.get('qbConfig');
 
-    if (!config || !storedId || (qbId && storedId !== qbId)) {
-        qbConfigs = await fetchAllQBankConfigs();
-    } else {
+    if (config && storedId && (!qbId || storedId === qbId)) {
         qbConfig = config;
         qbId = storedId;
+        if (qbConfig.version !== qbConfigs[qbId].version) {
+            await storage.save('needsUpdate', true);
+        } else {
+            await storage.save('needsUpdate', false);
+        }
         return;
     }
+
     // get qbconfigs object keys array
     const qbIds = Object.keys(qbConfigs);
     const qbTitles = qbIds.map(id => `${qbConfigs[id].title} - ${qbConfigs[id].count}`);
@@ -31,6 +36,7 @@ async function loadQbConfig() {
     }
     qbConfig = qbConfigs[qbId];
 
+    await storage.save('needsUpdate', true);
     await storage.save('qbId', qbId);
     await storage.save('qbConfig', qbConfig);
 }
