@@ -6,10 +6,9 @@ import { qbConfig, qbId } from './qb_config.js';
 
 // Variables
 const storage = storageService.getService();
-const FLAGS_KEY = 'isShownFlags';
-const SHOW_ALL_KEY = 'showAllAnswers';
 let correctIndices = [];
 let isShownFlags = [];
+let qbScroll = 0;
 let showAllAnswers = false;
 
 // SVG icons
@@ -35,8 +34,9 @@ let choicesElements;
 await loadQBankData(qbId, qbConfig)
     .then(async(qb) => {
         correctIndices = qb.questions.map(question => question.answer);
-        isShownFlags = await storage.get(FLAGS_KEY);
-        showAllAnswers = await storage.get(SHOW_ALL_KEY);
+        isShownFlags = await storage.get('isShownFlags');
+        showAllAnswers = await storage.get('showAllAnswers');
+        qbScroll = await storage.get('qbScroll');
         displayQBank(qb);
     })
     .catch(error => {
@@ -49,6 +49,11 @@ choicesElements = document.querySelectorAll('.choices');
 
 // Set Default UI
 showAnswersChb.checked = showAllAnswers;
+
+// Scroll to top
+if (qbScroll) {
+    window.scrollTo({top: qbScroll, behavior: 'instant'});
+}
 
 // Functions
 function displayQBank(qb) {
@@ -141,6 +146,7 @@ window.addEventListener('click', (event) => {
 });
 
 window.addEventListener('beforeunload', async () => {
-    await storage.save(FLAGS_KEY, isShownFlags);
-    await storage.save(SHOW_ALL_KEY, showAllAnswers);
+    await storage.save('isShownFlags', isShownFlags);
+    await storage.save('showAllAnswers', showAllAnswers);
+    await storage.save('qbScroll', window.scrollY);
 });

@@ -115,6 +115,12 @@
   text-align: center;
 }
 
+@media (prefers-color-scheme: dark) {
+  .dialog-container {
+    background-color: var(--clr-dark);
+  }
+}
+
 /* Dialog title */
 .dialog-title {
   margin-top: 0;
