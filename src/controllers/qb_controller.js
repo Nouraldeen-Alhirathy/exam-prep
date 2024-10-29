@@ -49,6 +49,7 @@ async function loadQBankData(qbId, config) {
     const needsUpdate = await storage.get('needsUpdate');
     if (needsUpdate) {
         console.log(`New version of ${qbId} QB found, fetching from API...`);
+        await storage.save('needsUpdate', false);
         return await fetchQBankData(url, qbId);
     }
 
