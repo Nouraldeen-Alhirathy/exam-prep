@@ -11,9 +11,19 @@ let qbConfig;
 
 // load qb config
 async function loadQbConfig() {
-    qbConfigs = await fetchAllQBankConfigs();
     const storedId = await storage.get('qbId');
     const config = await storage.get('qbConfig');
+
+    try {
+        qbConfigs = await fetchAllQBankConfigs();
+    } catch (_) {
+        if (storedId && config) {
+            qbConfig = config;
+            qbId = storedId;
+            await storage.save('needsUpdate', false);
+            return;
+        }
+    }
 
     if (config && storedId && (!qbId || storedId === qbId)) {
         qbConfig = config;
