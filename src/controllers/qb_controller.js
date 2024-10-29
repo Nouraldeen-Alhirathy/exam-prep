@@ -55,6 +55,7 @@ async function loadQBankData(qbId, config) {
     const storedQBank = await storage.get(qbId);
     if (!storedQBank) {
         console.log(`No ${qbId} QB found in storage, fetching from API...`);
+        await storage.save('needsUpdate', false);
         return await fetchQBankData(url, qbId);
     }
 

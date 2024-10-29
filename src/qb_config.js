@@ -20,7 +20,6 @@ async function loadQbConfig() {
         if (storedId && config) {
             qbConfig = config;
             qbId = storedId;
-            await storage.save('needsUpdate', false);
             return;
         } else {
             throw e;
@@ -33,8 +32,6 @@ async function loadQbConfig() {
         if (qbConfig.version !== qbConfigs[qbId].version) {
             await storage.save('needsUpdate', true);
             qbConfig = qbConfigs[qbId];
-        } else {
-            await storage.save('needsUpdate', false);
         }
         await storage.save('qbId', qbId);
         await storage.save('qbConfig', qbConfig);
