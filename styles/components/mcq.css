@@ -7,7 +7,7 @@
 .mcq .question {
   margin-bottom: 2rem;
   font-size: 1.25rem;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .mcq .choices {
@@ -22,6 +22,7 @@
   color: var(--clr-primary);
   border: 2px solid var(--clr-primary);
   border-radius: 0.5rem;
+  overflow-x: auto;
 }
 
 .mcq .correct {
