@@ -130,17 +130,16 @@ async function resetQuiz() {
 // Display Question
 function displayMcq(mcq) {
     const counter = mcqCounter + 1;
-    question.textContent = `${counter}. ${mcq.title}`;
+    question.innerHTML = `${counter}. ${mcq.title}`;
 
     choiceBtns = [];
     choices.innerHTML = '';
     mcq.choices.forEach(choice => {
         const btn = document.createElement('button');
-        btn.textContent = choice;
+        btn.innerHTML = choice;
         btn.classList.add('choice');
         choiceBtns.push(btn);
         choices.appendChild(btn);
-        btn.textContent = choice;
     });
 
     addChoicesEventListeners(choiceBtns);

@@ -67,7 +67,7 @@ function displayQBank(qb) {
         // Create the question title (the question itself)
         const questionTitle = document.createElement('p');
         questionTitle.classList.add('question');
-        questionTitle.textContent = `${index + 1}. ${question.title}`;
+        questionTitle.innerHTML = `${index + 1}. ${question.title}`;
 
         // Create the choices container
         const choicesContainer = document.createElement('div');
@@ -78,7 +78,7 @@ function displayQBank(qb) {
             const choiceElement = document.createElement('div');
             choiceElement.classList.add('choice');
 
-            choiceElement.textContent = `${choice}`;
+            choiceElement.innerHTML = `${choice}`;
             choicesContainer.appendChild(choiceElement);
         });
 
