@@ -3,7 +3,7 @@
 import { QBank } from '../models/qb.js';
 import storageService from '../services/storage_service.js';
 
-const configsUrl = 'https://raw.githubusercontent.com/Mohammed-Al-Zubiri/exam-prep-api/refs/heads/main/qb_configs.json';
+const configsUrl = 'https://raw.githubusercontent.com/Nouraldeen-Alhirathy/exam-prep-api/refs/heads/main/qb_configs.json';
 const storage = storageService.getService();
 
 async function fetchAllQBankConfigs() {
