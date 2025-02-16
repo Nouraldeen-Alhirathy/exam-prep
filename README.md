@@ -41,23 +41,11 @@ The project structure includes HTML files for different pages, JavaScript files 
     npm run preview
     ```
 
-## Question Bank Format
-
-Question banks are uploaded into another GitHub repository: [https://github.com/Mohammed-Al-Zubiri/exam-prep-api](https://github.com/Mohammed-Al-Zubiri/exam-prep-api).
-
-### `qb_configs.json`
-
-This file contains the configuration for the question banks. It is fetched from:
-[https://raw.githubusercontent.com/Mohammed-Al-Zubiri/exam-prep-api/refs/heads/main/qb_configs.json](https://raw.githubusercontent.com/Mohammed-Al-Zubiri/exam-prep-api/refs/heads/main/qb_configs.json)
-
-### Example Question Bank:
-[https://raw.githubusercontent.com/Mohammed-Al-Zubiri/exam-prep-api/refs/heads/main/qbs/research.json](https://raw.githubusercontent.com/Mohammed-Al-Zubiri/exam-prep-api/refs/heads/main/qbs/research.json)
-
 
 ## Usage Instructions
 
 Explore the live version of the app at:
-[https://exam-prep-azure.vercel.app](https://exam-prep-azure.vercel.app)
+[https://exam-prep-azure.vercel.app](https://exam-prep-nbcz.vercel.app/)
 
 ## Contribution Guidelines
 
